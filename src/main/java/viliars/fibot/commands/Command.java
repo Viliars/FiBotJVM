@@ -1,4 +1,7 @@
+package viliars.fibot.commands;
+
 import com.vk.api.sdk.objects.messages.Message;
+import viliars.fibot.core.VKManager;
 
 public abstract class Command implements Runnable {
 

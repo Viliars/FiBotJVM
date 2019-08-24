@@ -1,4 +1,7 @@
+package viliars.fibot.commands;
+
 import com.vk.api.sdk.objects.messages.Message;
+import viliars.fibot.core.VKManager;
 
 import java.util.ArrayList;
 import java.util.StringJoiner;

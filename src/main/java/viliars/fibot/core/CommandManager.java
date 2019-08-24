@@ -1,4 +1,8 @@
+package viliars.fibot.core;
+
 import com.vk.api.sdk.objects.messages.Message;
+import viliars.fibot.commands.Command;
+import viliars.fibot.commands.Repl;
 
 import java.util.HashMap;
 import java.util.concurrent.ExecutorService;

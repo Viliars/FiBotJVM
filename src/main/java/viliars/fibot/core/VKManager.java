@@ -1,7 +1,10 @@
+package viliars.fibot.core;
+
 import com.vk.api.sdk.exceptions.ApiException;
 import com.vk.api.sdk.exceptions.ClientException;
 import com.vk.api.sdk.objects.users.UserXtrCounters;
 import com.vk.api.sdk.queries.messages.MessagesSendQuery;
+import viliars.fibot.core.VKCore;
 
 public class VKManager {
     public static VKCore vkCore;
