@@ -12,4 +12,4 @@
 
 3) (Желательно) Тестирование вашего класса
 
-4) Merge request на master
+4) Pull request на master
