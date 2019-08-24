@@ -19,3 +19,9 @@ dependencies {
 
     compile 'com.vk.api:sdk:0.5.12'
 }
+
+jacocoTestReport {
+    reports {
+        xml.enabled true
+    }
+}
