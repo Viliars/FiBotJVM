@@ -13,6 +13,6 @@ before_deploy:
 deploy:
   skip_cleanup: true
   provider: script
-  script: rsync -r --delete-after --quiet $TRAVIS_BUILD_DIR/build/libs/FiBotJVM-1.0.jar root@host-94-103-83-146.hosted-by-vdsina.ru:FiBotJVM/Test.jar
+  script: rsync -r --delete-after --quiet $TRAVIS_BUILD_DIR/build/libs/FiBotJVM-1.0.jar root@host-94-103-83-146.hosted-by-vdsina.ru:FiBotJVM/FiBot.jar
   on:
     branch: master
