@@ -10,13 +10,9 @@ before_deploy:
   -in .travis/deploy_key.enc -out .travis/deploy_key -d
 - ".travis/set-up-ssh"
 - ./gradlew build
-- pwd
-- ls
-- ls $TRAVIS_BUILD_DIR/build
-- ls $TRAVIS_BUILD_DIR/build/libs/
 deploy:
   skip_cleanup: true
   provider: script
-  script: rsync -r --delete-after --quiet $TRAVIS_BUILD_DIR/build/libs/FiBot-1.0.jar root@host-94-103-83-146.hosted-by-vdsina.ru:FiBotJVM/Test.jar
+  script: rsync -r --delete-after --quiet $TRAVIS_BUILD_DIR/build/libs/FiBotJVM-1.0.jar root@host-94-103-83-146.hosted-by-vdsina.ru:FiBotJVM/Test.jar
   on:
     branch: master
