@@ -9,7 +9,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 interface CommandFactory<T extends Command> {
-    T create(VKManager vk, Message message);
+    T create(VkApi vk, Message message);
 }
 
 public class CommandManager {
@@ -21,11 +21,11 @@ public class CommandManager {
         commands.put("/repl", Repl::new);
     }
 
-    public static void execute (Message message) {
-        String command = message.getBody().split(" ")[0];
+    public static void execute (VkApi vk, Message message) {
+        String command = message.getText().split(" ")[0];
         for(HashMap.Entry<String, CommandFactory> every : commands.entrySet()) {
             if(every.getKey().equals(command)) {
-                executor.execute(every.getValue().create(new VKManager(), message));
+                executor.execute(every.getValue().create(vk, message));
             }
         }
     }

@@ -2,3 +2,4 @@
 .gradle/
 src/main/resources
 out/
+build/

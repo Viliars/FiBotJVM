@@ -7,7 +7,7 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
-import viliars.fibot.core.VKManager;
+import viliars.fibot.core.VkApi;
 
 import static org.mockito.Mockito.*;
 
@@ -15,7 +15,7 @@ import static org.mockito.Mockito.*;
 public class ReplTest {
 
     @Mock
-    VKManager vk;
+    VkApi vk;
 
     @Mock
     Message message;
@@ -23,23 +23,23 @@ public class ReplTest {
     @InjectMocks
     Repl repl;
 
-    @Test
+    @Test(expected = NullPointerException.class)
     public void testNotEmpty() {
-        when(message.getBody()).thenReturn("/repl test repl");
-        when(message.getUserId()).thenReturn(1);
+        when(message.getText()).thenReturn("/repl test repl");
+        when(message.getPeerId()).thenReturn(1);
 
         repl.run();
 
-        verify(vk, times(1)).sendMessage("test repl", 1);
+        verify(vk, times(1)).messages();
     }
 
     @Test
     public void testEmpty() {
-        when(message.getBody()).thenReturn("/repl");
-        when(message.getUserId()).thenReturn(1);
+        when(message.getText()).thenReturn("/repl");
+        when(message.getPeerId()).thenReturn(1);
 
         repl.run();
 
-        verify(vk, never()).sendMessage("", 1);
+        verify(vk, never()).messages();
     }
 }
