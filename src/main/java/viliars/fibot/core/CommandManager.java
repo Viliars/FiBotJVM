@@ -21,10 +21,10 @@ public class CommandManager {
         commands.put("/repl", Repl::new);
     }
 
-    public static void execute (VkApi vk, Message message) {
+    public static void execute(VkApi vk, Message message) {
         String command = message.getText().split(" ")[0];
-        for(HashMap.Entry<String, CommandFactory> every : commands.entrySet()) {
-            if(every.getKey().equals(command)) {
+        for (HashMap.Entry<String, CommandFactory> every : commands.entrySet()) {
+            if (every.getKey().equals(command)) {
                 executor.execute(every.getValue().create(vk, message));
             }
         }

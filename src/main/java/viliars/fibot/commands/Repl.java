@@ -19,14 +19,13 @@ public class Repl extends Command {
         StringJoiner joiner = new StringJoiner(" ");
         String text = message.getText();
         String[] list = text.split(" ");
-        if(list.length > 1) {
-            for(int i = 1; i < list.length; i++)
+        if (list.length > 1) {
+            for (int i = 1; i < list.length; i++)
                 joiner.add(list[i]);
 
-            try{
-                vk.messages().send(vk.getActor())
+            try {
+                vk.messages().send(vk.getActor()).message(joiner.toString())
                         .peerId(message.getPeerId())
-                        .message(joiner.toString())
                         .randomId(random.nextInt()).execute();
             } catch (ApiException | ClientException e) {
                 e.printStackTrace();

@@ -15,7 +15,7 @@ public class CallbackHandler extends CallbackApiLongPoll {
 
     @Override
     public void messageNew(Integer groupId, Message message) {
-        if(message != null) {
+        if (message != null) {
             CommandManager.execute(vk, message);
         }
     }
