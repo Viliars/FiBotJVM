@@ -3,13 +3,12 @@ jdk:
 - oraclejdk12
 after_success:
 - bash <(curl -s https://codecov.io/bash)
-before_install:
-- openssl aes-256-cbc -K $encrypted_bddfab5bdb61_key -iv $encrypted_bddfab5bdb61_iv
-  -in .travis/deploy_key.enc -out .travis/deploy_key -d
 addons:
   ssh_known_hosts: host-94-103-83-146.hosted-by-vdsina.ru
 before_deploy:
-  - .travis/set-up-ssh
+- openssl aes-256-cbc -K $encrypted_bddfab5bdb61_key -iv $encrypted_bddfab5bdb61_iv
+  -in .travis/deploy_key.enc -out .travis/deploy_key -d
+- ".travis/set-up-ssh"
 deploy:
   skip_cleanup: true
   provider: script
