@@ -11,25 +11,34 @@ import java.io.IOException;
 import java.util.Properties;
 
 public class App {
-    public static void main(String[] args) throws IOException, ClientException, ApiException {
-        Properties properties = readProperties();
+    private final static String configPath = "src/main/resources/config.properties";
+
+    public static void main(String[] args) throws IOException, ApiException {
+        Properties properties = readProperties(configPath);
         GroupActor groupActor = createGroupActor(properties);
+        while (true) {
+            try {
+                HttpTransportClient httpClient = HttpTransportClient.getInstance();
+                VkApi vk = new VkApi(httpClient, groupActor);
 
-        HttpTransportClient httpClient = HttpTransportClient.getInstance();
-        VkApi vk = new VkApi(httpClient, groupActor);
-
-        CallbackHandler handler = new CallbackHandler(vk);
-        handler.run();
+                CallbackHandler handler = new CallbackHandler(vk);
+                handler.run();
+            } catch (ClientException e) {
+                System.out.println("ERROR - RELOAD");
+            }
+        }
     }
 
-    private static GroupActor createGroupActor(Properties properties) {
-        String groupId = properties.getProperty("groupId");
-        String accessToken = properties.getProperty("accessToken");
+    private static GroupActor createGroupActor(Properties properties) throws IOException {
+        String vkConfigPath = properties.getProperty("vkConfigPath");
+        Properties vkProperties = readProperties(vkConfigPath);
+        String groupId = vkProperties.getProperty("groupId");
+        String accessToken = vkProperties.getProperty("accessToken");
         return new GroupActor(Integer.parseInt(groupId), accessToken);
     }
 
-    private static Properties readProperties() throws IOException {
-        FileInputStream inputStream = new FileInputStream("config.properties");
+    private static Properties readProperties(String path) throws IOException {
+        FileInputStream inputStream = new FileInputStream(path);
         if (inputStream == null) {
             throw new FileNotFoundException("property file not found");
         }

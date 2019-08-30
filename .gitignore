@@ -1,5 +1,5 @@
 .idea/
 .gradle/
-src/main/resources
+vkConfig.properties
 out/
 build/
