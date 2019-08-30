@@ -3,3 +3,4 @@
 vkConfig.properties
 out/
 build/
+.DS_Store
