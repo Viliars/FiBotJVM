@@ -8,13 +8,14 @@ import com.vk.api.sdk.httpclient.HttpTransportClient;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Properties;
 
 public class App {
-    private final static String configPath = "src/main/resources/config.properties";
+    private final static String configPath = "/config.properties";
 
     public static void main(String[] args) throws IOException, ApiException {
-        Properties properties = readProperties(configPath);
+        Properties properties = readResource();
         GroupActor groupActor = createGroupActor(properties);
         while (true) {
             try {
@@ -31,16 +32,21 @@ public class App {
 
     private static GroupActor createGroupActor(Properties properties) throws IOException {
         String vkConfigPath = properties.getProperty("vkConfigPath");
-        Properties vkProperties = readProperties(vkConfigPath);
+        InputStream inputStream = new FileInputStream(vkConfigPath);
+        Properties vkProperties = readProperties(inputStream);
         String groupId = vkProperties.getProperty("groupId");
         String accessToken = vkProperties.getProperty("accessToken");
         return new GroupActor(Integer.parseInt(groupId), accessToken);
     }
 
-    private static Properties readProperties(String path) throws IOException {
-        FileInputStream inputStream = new FileInputStream(path);
+    private static Properties readResource() throws IOException {
+        InputStream inputStream = App.class.getResourceAsStream(configPath);
+        return readProperties(inputStream);
+    }
+
+    private static Properties readProperties(InputStream inputStream) throws IOException {
         if (inputStream == null) {
-            throw new FileNotFoundException("property file not found");
+            throw new FileNotFoundException("InputStream is Null");
         }
         try {
             Properties properties = new Properties();
